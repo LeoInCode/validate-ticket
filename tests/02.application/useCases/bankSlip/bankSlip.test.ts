@@ -1,5 +1,6 @@
 /* eslint-disable max-classes-per-file */
-import BankSlip from '../../../../src/02.application/useCases/bankSlipt/bankSplit';
+
+import BankSlip from '../../../../src/02.application/useCases/bankSlip/bankSplit';
 
 const makeVerifyingDigit = () => {
   class VerifyingDigitSpy {
