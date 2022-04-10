@@ -50,14 +50,17 @@ class BankSlip {
     return barCode;
   }
 
-  private getExpirationDate(code: string) {
+  private getExpirationDate(code: string): string {
     const days = +code.substring(33, 37);
     const expirationDate = this.dateTransform.addDays(
       new Date('1997-10-07'),
       days,
     );
 
-    return expirationDate;
+    const expirationDateTransformed =
+      this.dateTransform.getOnlyDate(expirationDate);
+
+    return expirationDateTransformed;
   }
 
   private getValueNominal(code: string): string {
