@@ -52,8 +52,9 @@ class BankSlip {
 
   private getExpirationDate(code: string): string {
     const days = +code.substring(33, 37);
+    const startDate = '1997-10-07';
     const expirationDate = this.dateTransform.addDays(
-      new Date('1997-10-07'),
+      new Date(startDate),
       days,
     );
 
