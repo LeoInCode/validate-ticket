@@ -1,10 +1,11 @@
 class BankSlip {
   constructor() {}
 
-  public validate(code: string) {
-    if (code.length !== 47) return false;
+  public validate(originalCode: string) {
+    const replacedCode = originalCode.replace(/( |\.|-)/g, '');
+    if (replacedCode.length !== 47) return false;
 
-    if (Number.isNaN(+code)) return false;
+    if (Number.isNaN(+replacedCode)) return false;
 
     return true;
   }
@@ -29,5 +30,13 @@ describe('BankSlip UseCase ', () => {
       'any_code123458764520394875643210947365287563985',
     );
     expect(isValid).toBe(false);
+  });
+
+  test('Shoud return true when code contain numbers, points and hairline', async () => {
+    const { bankSlip } = makeSut();
+    const isValid = bankSlip.validate(
+      '49082.73612.345876.452039487564321094.736528756-3985',
+    );
+    expect(isValid).toBe(true);
   });
 });
