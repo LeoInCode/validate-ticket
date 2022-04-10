@@ -19,6 +19,8 @@ class BankSlip implements IBankSplip {
   }
 
   public validate(originalCode: string): IResponse | boolean {
+    console.log(originalCode);
+
     if (!originalCode) return false;
 
     const replacedCode = originalCode.replace(/( |\.|-)/g, '');
