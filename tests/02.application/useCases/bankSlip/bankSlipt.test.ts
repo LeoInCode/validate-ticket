@@ -52,14 +52,20 @@ describe('BankSlip UseCase ', () => {
 
   test('Shoud call verifyingDigit with correct code', async () => {
     const { bankSlip, verifyDigitSpy } = makeSut();
-    bankSlip.validate('49082.73612.345876.452039487564321094.736528756-3985');
+    const isValid = bankSlip.validate(
+      '49082.73612.345876.452039487564321094.736528756-3985',
+    );
+    expect(isValid).toBe(true);
     expect(verifyDigitSpy.isValid).toBe(true);
   });
 
   test('Shoud call verifyingDigit with incorrect code', async () => {
     const { bankSlip, verifyDigitSpy } = makeSut();
     verifyDigitSpy.isValid = false;
-    bankSlip.validate('49082.73612.345876.452039487564321094.736528756-3985');
+    const isValid = bankSlip.validate(
+      '49082.73612.345876.452039487564321094.736528756-3985',
+    );
+    expect(isValid).toBe(false);
     expect(verifyDigitSpy.isValid).toBe(false);
   });
 });

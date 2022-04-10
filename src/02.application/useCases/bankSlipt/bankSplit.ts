@@ -16,9 +16,9 @@ class BankSlip {
 
     const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
-    this.verifyingDigit.verifyDigitInBarcode(barCode);
+    const isValid = this.verifyingDigit.verifyDigitInBarcode(barCode);
 
-    return true;
+    return isValid;
   }
 
   public convertTypeableLineToBarcode(code: string): string {
