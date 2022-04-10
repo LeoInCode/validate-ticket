@@ -4,7 +4,8 @@
   "description": "Valid bank slipt and  dealership slip",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "tsc",
+    "test": "jest --watch --noStackTrace --passWithNoTests -- runInBand"
   },
   "repository": {
     "type": "git",
