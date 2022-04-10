@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/LeoInCode/validate-ticket/issues"
   },
-  "homepage": "https://github.com/LeoInCode/validate-ticket#readme"
+  "homepage": "https://github.com/LeoInCode/validate-ticket#readme",
+  "devDependencies": {
+    "typescript": "^4.6.3"
+  }
 }
