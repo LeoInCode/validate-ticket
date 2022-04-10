@@ -26,6 +26,7 @@
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-useless-constructor": "off",
+        "@typescript-eslint/space-before-blocks": "off",
         "no-useless-catch": "off",
         "@typescript-eslint/no-throw-literal": "off",
         "no-await-in-loop": "off",
