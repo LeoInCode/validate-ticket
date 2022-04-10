@@ -19,6 +19,10 @@ const makeDateTransform = () => {
     public addDays(startDate: Date, days: number) {
       return startDate;
     }
+
+    public getOnlyDate(date: Date): string {
+      return '';
+    }
   }
   const dateTransform = new DateTransformSpy();
   return dateTransform;
@@ -52,14 +56,6 @@ describe('BankSlip UseCase ', () => {
     );
     expect(isValid).toBe(false);
   });
-
-  // test('Shoud return true when code contain numbers, points and hairline', async () => {
-  //   const { bankSlip } = makeSut();
-  //   const isValid = bankSlip.validate(
-  //     '49082.73612.345876.452039487564321094.736528756-3985',
-  //   );
-  //   expect(isValid).toEqual(true);
-  // });
 
   test('Shoud call verifyingDigit with correct code', async () => {
     const { bankSlip, verifyDigitSpy } = makeSut();

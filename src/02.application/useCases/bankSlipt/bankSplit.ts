@@ -1,6 +1,12 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
 import { IVerifyingDigit } from './utils/iVerifyingDigit';
 
+interface IResponse {
+  barCode: string;
+  amount: string;
+  expirationDate: string;
+}
+
 class BankSlip {
   private readonly verifyingDigit: IVerifyingDigit;
 
@@ -11,7 +17,7 @@ class BankSlip {
     this.dateTransform = dateTrasnform;
   }
 
-  public validate(originalCode: string): any {
+  public validate(originalCode: string): IResponse | boolean {
     if (!originalCode) return false;
 
     const replacedCode = originalCode.replace(/( |\.|-)/g, '');
