@@ -10,7 +10,22 @@ class BankSlip {
 
     if (Number.isNaN(+replacedCode)) return false;
 
+    const barCode = this.convertTypeableLineToBarcode(replacedCode);
+
     return true;
+  }
+
+  public convertTypeableLineToBarcode(code): string {
+    let barCode = '';
+    barCode += code.substring(0, 3); // Bank identifier
+    barCode += code.substring(3, 4); // Coin code
+    barCode += code.substring(32, 33); // DV (Verifying digit)
+    barCode += code.substring(33, 37); // Expiration date
+    barCode += code.substring(37, 47); // Nominal value
+    barCode += code.substring(4, 9); // Free block one
+    barCode += code.substring(10, 20); // Free block two
+    barCode += code.substring(21, 31); // Free block three
+    return barCode;
   }
 }
 
