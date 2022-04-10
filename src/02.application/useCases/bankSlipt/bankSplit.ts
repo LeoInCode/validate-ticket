@@ -1,7 +1,9 @@
-class BankSlip {
-  private verifyingDigit;
+import { IVerifyingDigit } from './utils/iVerifyingDigit';
 
-  constructor(verifyingDigit) {
+class BankSlip {
+  private verifyingDigit: IVerifyingDigit;
+
+  constructor(verifyingDigit: IVerifyingDigit) {
     this.verifyingDigit = verifyingDigit;
   }
 

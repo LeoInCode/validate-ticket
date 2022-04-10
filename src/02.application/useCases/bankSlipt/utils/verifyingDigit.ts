@@ -1,4 +1,6 @@
-class VerifyingDigit {
+import { IVerifyingDigit } from './iVerifyingDigit';
+
+class VerifyingDigit implements IVerifyingDigit {
   public verifyDigitInBarcode(code: string): boolean {
     const positionOfVerifyingDigit = 4;
     const verifyingDigit = code[positionOfVerifyingDigit];
@@ -9,7 +11,7 @@ class VerifyingDigit {
     return isValid;
   }
 
-  moduleElevenCalculateVerifyingDigit(block: string): number {
+  private moduleElevenCalculateVerifyingDigit(block: string): number {
     const code = block.split('').reverse();
     const summation = this.getSummationOfCode(code);
 
@@ -23,7 +25,7 @@ class VerifyingDigit {
     return veyfyingDigit;
   }
 
-  getSummationOfCode(code: string[]): number {
+  private getSummationOfCode(code: string[]): number {
     let multiplier = 2;
     const limitOfMultiplier = 9;
     const summation = code.reduce((acc, cur) => {
