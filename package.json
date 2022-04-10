@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "test": "jest --watch --noStackTrace --passWithNoTests -- runInBand"
+    "test": "jest --watchAll --noStackTrace --passWithNoTests -- runInBand"
   },
   "repository": {
     "type": "git",
