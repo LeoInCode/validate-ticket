@@ -1,0 +1,19 @@
+{
+  "name": "validate-ticket",
+  "version": "1.0.0",
+  "description": "Valid bank slipt and  dealership slip",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LeoInCode/validate-ticket.git"
+  },
+  "author": "Leonardo Mendes",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/LeoInCode/validate-ticket/issues"
+  },
+  "homepage": "https://github.com/LeoInCode/validate-ticket#readme"
+}
