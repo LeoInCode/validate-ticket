@@ -1,9 +1,24 @@
 import BankSlip from '../../../../src/02.application/useCases/bankSlipt/bankSplit';
 
-const makeSut = () => {
-  const bankSlip = new BankSlip();
+const makeVerifyingDigit = () => {
+  class VerifyingDigitSpy {
+    public isValid;
 
-  return { bankSlip };
+    public verifyDigitInBarcode(code) {
+      return this.isValid;
+    }
+  }
+
+  const verifyingDigit = new VerifyingDigitSpy();
+  verifyingDigit.isValid = true;
+  return verifyingDigit;
+};
+
+const makeSut = () => {
+  const verifyDigitSpy = makeVerifyingDigit();
+  const bankSlip = new BankSlip(verifyDigitSpy);
+
+  return { bankSlip, verifyDigitSpy };
 };
 
 describe('BankSlip UseCase ', () => {
@@ -33,5 +48,11 @@ describe('BankSlip UseCase ', () => {
       '49082.73612.345876.452039487564321094.736528756-3985',
     );
     expect(isValid).toBe(true);
+  });
+
+  test('Shoud call verifyingDigit with correct code', async () => {
+    const { bankSlip, verifyDigitSpy } = makeSut();
+    bankSlip.validate('49082.73612.345876.452039487564321094.736528756-3985');
+    expect(verifyDigitSpy.isValid).toBe(true);
   });
 });

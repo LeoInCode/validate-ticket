@@ -1,5 +1,9 @@
 class BankSlip {
-  constructor() {}
+  private verifyingDigit;
+
+  constructor(verifyingDigit) {
+    this.verifyingDigit = verifyingDigit;
+  }
 
   public validate(originalCode: string): boolean {
     if (!originalCode) return false;
@@ -12,10 +16,12 @@ class BankSlip {
 
     const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
+    this.verifyingDigit.verifyDigitInBarcode(barCode);
+
     return true;
   }
 
-  public convertTypeableLineToBarcode(code): string {
+  public convertTypeableLineToBarcode(code: string): string {
     let barCode = '';
     barCode += code.substring(0, 3); // Bank identifier
     barCode += code.substring(3, 4); // Coin code
