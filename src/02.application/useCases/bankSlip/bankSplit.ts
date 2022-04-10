@@ -1,4 +1,5 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
+import { IBankSplip } from '../interfaces/iBankSlip';
 import { IVerifyingDigit } from './utils/iVerifyingDigit';
 
 interface IResponse {
@@ -7,7 +8,7 @@ interface IResponse {
   expirationDate: string;
 }
 
-class BankSlip {
+class BankSlip implements IBankSplip {
   private readonly verifyingDigit: IVerifyingDigit;
 
   private readonly dateTransform: IDateTransform;
