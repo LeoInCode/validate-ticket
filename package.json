@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node-dev ./src/01.api/api.ts",
-    "test": "jest --watchAll --noStackTrace --passWithNoTests -- runInBand"
+    "test": "jest --watchAll --noStackTrace"
   },
   "repository": {
     "type": "git",
