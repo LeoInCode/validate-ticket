@@ -1,11 +1,12 @@
+import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
 import { IVerifyingDigit } from './utils/iVerifyingDigit';
 
 class BankSlip {
   private readonly verifyingDigit: IVerifyingDigit;
 
-  private readonly dateTransform;
+  private readonly dateTransform: IDateTransform;
 
-  constructor(verifyingDigit: IVerifyingDigit, dateTrasnform) {
+  constructor(verifyingDigit: IVerifyingDigit, dateTrasnform: IDateTransform) {
     this.verifyingDigit = verifyingDigit;
     this.dateTransform = dateTrasnform;
   }
@@ -27,8 +28,11 @@ class BankSlip {
 
     const expirationDate = this.getExpirationDate(replacedCode);
 
+    const valueNominal = this.getValueNominal(replacedCode);
+
     return {
       barCode: replacedCode,
+      amount: valueNominal,
       expirationDate,
     };
   }
@@ -54,6 +58,18 @@ class BankSlip {
     );
 
     return expirationDate;
+  }
+
+  private getValueNominal(code: string): string {
+    const codeWithValue = code.substring(37, 47).split('');
+    this.deleteLastTwoPositions(codeWithValue);
+    const valueNominal = +codeWithValue.join('');
+
+    return valueNominal.toFixed(2);
+  }
+
+  private deleteLastTwoPositions(codeWithValue: string[]) {
+    codeWithValue.splice(codeWithValue.length - 2, codeWithValue.length - 1);
   }
 }
 
