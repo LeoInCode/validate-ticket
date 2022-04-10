@@ -1,15 +1,4 @@
-class BankSlip {
-  constructor() {}
-
-  public validate(originalCode: string) {
-    const replacedCode = originalCode.replace(/( |\.|-)/g, '');
-    if (replacedCode.length !== 47) return false;
-
-    if (Number.isNaN(+replacedCode)) return false;
-
-    return true;
-  }
-}
+import BankSlip from '../../../../src/02.application/useCases/bankSlipt/bankSplit';
 
 const makeSut = () => {
   const bankSlip = new BankSlip();
