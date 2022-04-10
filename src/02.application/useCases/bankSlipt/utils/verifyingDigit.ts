@@ -16,10 +16,11 @@ class VerifyingDigit {
     const numberOfPositions = 11;
     const remainder = summation % numberOfPositions;
 
-    const DV = numberOfPositions - remainder;
-    if (DV === 0 || DV === 10 || DV === 11) return 1;
+    const veyfyingDigit = numberOfPositions - remainder;
+    if (veyfyingDigit === 0 || veyfyingDigit === 10 || veyfyingDigit === 11)
+      return 1;
 
-    return DV;
+    return veyfyingDigit;
   }
 
   getSummationOfCode(code: string[]): number {
