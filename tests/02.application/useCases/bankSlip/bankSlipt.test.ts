@@ -2,9 +2,9 @@ import BankSlip from '../../../../src/02.application/useCases/bankSlipt/bankSpli
 
 const makeVerifyingDigit = () => {
   class VerifyingDigitSpy {
-    public isValid;
+    public isValid: boolean;
 
-    public verifyDigitInBarcode(code) {
+    public verifyDigitInBarcode(code: string) {
       return this.isValid;
     }
   }
