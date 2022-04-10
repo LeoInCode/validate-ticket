@@ -7,6 +7,12 @@ const makeSut = () => {
 };
 
 describe('BankSlip UseCase ', () => {
+  test('Shoud return false when code was not provided', async () => {
+    const { bankSlip } = makeSut();
+    const isValid = bankSlip.validate(null);
+    expect(isValid).toBe(false);
+  });
+
   test('Shoud return false when code does not have 47 caracteres', async () => {
     const { bankSlip } = makeSut();
     const isValid = bankSlip.validate('any_code');
