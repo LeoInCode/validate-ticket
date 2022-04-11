@@ -1,3 +1,4 @@
+import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
 import replaceCode from '../../common/helpers/replaceCode';
 
@@ -21,6 +22,8 @@ class DealershipSlip {
 
       const isValid =
         this.verifyingDigitDealership.verifyDigitInBarcode(barCode);
+
+      if (!isValid) throw new InvalidCodeError();
 
       return {
         statusCode: 200,

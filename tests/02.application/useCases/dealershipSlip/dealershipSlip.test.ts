@@ -78,4 +78,14 @@ describe('DealershipSlip UseCase ', () => {
     expect(verifyingDigitDealershipSpy.isValid).toBe(true);
     expect(result.statusCode).toBe(200);
   });
+
+  test('Should call verifyingDigitDealership with incorrect code', async () => {
+    const { dealershipSlip, verifyingDigitDealershipSpy } = makeSut();
+    verifyingDigitDealershipSpy.isValid = false;
+    const result = dealershipSlip.validate(
+      '83620000000566.780048100018.0975657313001.589636081',
+    );
+    expect(result.statusCode).toBe(400);
+    expect(verifyingDigitDealershipSpy.isValid).toBe(false);
+  });
 });
