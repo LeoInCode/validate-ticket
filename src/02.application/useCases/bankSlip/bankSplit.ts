@@ -1,4 +1,5 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
+import replaceCode from '../../common/replaceCode';
 import { IBankSplip } from '../interfaces/iBankSlip';
 import { IVerifyingDigit } from './utils/helpers/iVerifyingDigit';
 
@@ -19,11 +20,9 @@ class BankSlip implements IBankSplip {
   }
 
   public validate(originalCode: string): IResponse | boolean {
-    console.log(originalCode);
-
     if (!originalCode) return false;
 
-    const replacedCode = originalCode.replace(/( |\.|-)/g, '');
+    const replacedCode = replaceCode(originalCode);
 
     if (replacedCode.length !== 47) return false;
 
