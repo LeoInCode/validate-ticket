@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 class VerifyingDigitDealership {
   private readonly codeCalculator;
 
@@ -13,14 +14,36 @@ class VerifyingDigitDealership {
 
     const blockOfCode = code.substring(0, 3) + code.substring(4);
     if (identifierCoin === 6 || identifierCoin === 7) {
-      // module 10
+      return (
+        this.moduleTeenCalculeVeryfingDigit(blockOfCode) === verifyingDigit
+      );
     }
     if (identifierCoin === 8 || identifierCoin === 9) {
       return (
         this.moduleElevenCalculateVerifyingDigit(blockOfCode) === verifyingDigit
       );
     }
-    return true;
+    return false;
+  }
+
+  private moduleTeenCalculeVeryfingDigit(block: string): number {
+    const code = block.split('').reverse();
+    let multiplier = 1;
+    const summation = code.reduce((acc, cur) => {
+      multiplier = multiplier === 2 ? 1 : 2;
+      let sum = +cur * multiplier;
+      let oldSum = 0;
+      sum > 9
+        ? `${sum}`.split('').forEach((separatedValue) => {
+            sum = oldSum + +separatedValue;
+            oldSum = +separatedValue;
+          })
+        : sum;
+      return acc + sum;
+    }, 0);
+
+    const numberOfPositions = 10;
+    return numberOfPositions - (summation % numberOfPositions);
   }
 
   private moduleElevenCalculateVerifyingDigit(block: string): number {
