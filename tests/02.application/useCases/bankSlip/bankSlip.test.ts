@@ -3,20 +3,23 @@ import BankSlip from '../../../../src/02.application/useCases/bankSlip/bankSplit
 
 const makeCodeValidator = () => {
   class CodeValidatorSpy {
+    public isValid: boolean;
+
     public hasCode(code: string): void {
-      throw new Error();
+      if (!this.isValid) throw new Error();
     }
 
     public isEqualToLength(code: string, length: number): void {
-      throw new Error();
+      if (!this.isValid) throw new Error();
     }
 
     public isANumber(code: string): void {
-      throw new Error();
+      if (!this.isValid) throw new Error();
     }
   }
 
   const codeValidator = new CodeValidatorSpy();
+  codeValidator.isValid = false;
   return codeValidator;
 };
 
@@ -73,7 +76,7 @@ describe('BankSlip UseCase ', () => {
     expect(result.statusCode).toBe(400);
   });
 
-  test('Shoud return statusCode 400 when code does not contain only numbers', async () => {
+  test('Should return statusCode 400 when code does not contain only numbers', async () => {
     const { bankSlip } = makeSut();
     const result = bankSlip.validate(
       'any_code123458764520394875643210947365287563985',
@@ -81,13 +84,28 @@ describe('BankSlip UseCase ', () => {
     expect(result.statusCode).toBe(400);
   });
 
-  test('Shoud call verifyingDigit with correct code', async () => {
-    const { bankSlip, verifyDigitSpy } = makeSut();
-    bankSlip.validate('49082.73612.345876.452039487564321094.736528756-3985');
+  test('Should call verifyingDigit with correct code', async () => {
+    const { bankSlip, verifyDigitSpy, codeValidatorSpy } = makeSut();
+    codeValidatorSpy.isValid = true;
+    const result = bankSlip.validate(
+      '49082.73612.345876.452039487564321094.736528756-3985',
+    );
     expect(verifyDigitSpy.isValid).toBe(true);
+    expect(result.statusCode).toBe(200);
   });
 
-  test('Shoud call verifyingDigit with incorrect code', async () => {
+  test('Should call verifyingDigit with incorrect code', async () => {
+    const { bankSlip, verifyDigitSpy, codeValidatorSpy } = makeSut();
+    codeValidatorSpy.isValid = true;
+    verifyDigitSpy.isValid = false;
+    const result = bankSlip.validate(
+      '49082.73612.345876.452039487564321094.736528756-3985',
+    );
+    expect(result.statusCode).toBe(400);
+    expect(verifyDigitSpy.isValid).toBe(false);
+  });
+
+  test('Should call verifyingDigit with incorrect code', async () => {
     const { bankSlip, verifyDigitSpy } = makeSut();
     verifyDigitSpy.isValid = false;
     const result = bankSlip.validate(
