@@ -9,6 +9,7 @@ class DealershipSlip {
     try {
       this.codeValidator.hasCode(originalCode);
       this.codeValidator.isEqualToLength(originalCode, 48);
+      this.codeValidator.haveOnlyNumbers(originalCode);
       return {
         statusCode: 200,
       };

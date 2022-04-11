@@ -34,4 +34,12 @@ describe('BankSlip UseCase ', () => {
     const result = dealershipSlip.validate('any_code');
     expect(result.statusCode).toBe(400);
   });
+
+  test('Should return statusCode 400 when code does not contain only numbers', async () => {
+    const { dealershipSlip } = makeSut();
+    const result = dealershipSlip.validate(
+      'any_code123458764520394875643210947365287563985',
+    );
+    expect(result.statusCode).toBe(400);
+  });
 });
