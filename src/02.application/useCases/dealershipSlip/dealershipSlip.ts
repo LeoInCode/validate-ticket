@@ -1,15 +1,19 @@
-class DealershipSlip {
-  private codeValidator;
+import { ICodeValidator } from '../../common/helpers/iCodeValidator';
+import replaceCode from '../../common/helpers/replaceCode';
 
-  constructor(codeValidator) {
+class DealershipSlip {
+  private readonly codeValidator: ICodeValidator;
+
+  constructor(codeValidator: ICodeValidator) {
     this.codeValidator = codeValidator;
   }
 
   public validate(originalCode: string) {
     try {
-      this.codeValidator.hasCode(originalCode);
-      this.codeValidator.isEqualToLength(originalCode, 48);
-      this.codeValidator.haveOnlyNumbers(originalCode);
+      const replacedCode = replaceCode(originalCode);
+
+      this.validCode(originalCode, replacedCode);
+
       return {
         statusCode: 200,
       };
@@ -18,6 +22,13 @@ class DealershipSlip {
         statusCode: 400,
       };
     }
+  }
+
+  private validCode(originalCode: string, replacedCode: string): void {
+    const lengthOfCode = 48;
+    this.codeValidator.hasCode(originalCode);
+    this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
+    this.codeValidator.haveOnlyNumbers(replacedCode);
   }
 }
 

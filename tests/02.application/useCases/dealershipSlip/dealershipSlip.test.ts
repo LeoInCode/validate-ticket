@@ -8,6 +8,14 @@ const makeCodeValidator = () => {
     public hasCode(code: string): void {
       if (!this.isValid) throw new Error();
     }
+
+    public isEqualToLength(code: string, length: number): void {
+      if (!this.isValid) throw new Error();
+    }
+
+    public haveOnlyNumbers(code: string): void {
+      if (!this.isValid) throw new Error();
+    }
   }
 
   const codeValidator = new CodeValidatorSpy();
