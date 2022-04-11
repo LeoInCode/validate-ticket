@@ -46,7 +46,7 @@ class BankSlip implements IBankSplip {
 
       const expirationDate = this.getExpirationDate(replacedCode);
 
-      const valueNominal = this.getValueNominal(replacedCode);
+      const valueNominal = this.getNominalValue(replacedCode);
 
       return {
         statusCode: 200,
@@ -100,7 +100,7 @@ class BankSlip implements IBankSplip {
     return expirationDateTransformed;
   }
 
-  private getValueNominal(code: string): string {
+  private getNominalValue(code: string): string {
     const codeWithValue = code.substring(37, 47).split('');
     this.deleteLastTwoPositions(codeWithValue);
     const valueNominal = +codeWithValue.join('');
