@@ -1,4 +1,6 @@
-class CodeCalculator {
+import { ICodeCalculator } from './iCodeCalculator';
+
+class CodeCalculator implements ICodeCalculator {
   public getRemainderOfSummation(block: string): number {
     const code = block.split('').reverse();
     let multiplier = 2;
