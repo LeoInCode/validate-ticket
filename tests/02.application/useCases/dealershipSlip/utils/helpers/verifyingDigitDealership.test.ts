@@ -38,4 +38,20 @@ describe('VerifyingDigitDealership Helper ', () => {
     const isValid = verifiyingDigitDealership.verifyDigitInBarcode('9832098');
     expect(isValid).toBe(false);
   });
+
+  test('Shoud return true when sum of code and verifying digit are equal in moduleTeen', async () => {
+    const { verifiyingDigitDealership } = makeSut();
+    const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
+      '836200000005667800481000180975657313001589636081',
+    );
+    expect(isValid).toBe(true);
+  });
+
+  test('Shoud return true when sum of code and verifying digit are equal in moduleEleven', async () => {
+    const { verifiyingDigitDealership } = makeSut();
+    const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
+      '83860000000667800481001809756573100158963608',
+    );
+    expect(isValid).toBe(true);
+  });
 });
