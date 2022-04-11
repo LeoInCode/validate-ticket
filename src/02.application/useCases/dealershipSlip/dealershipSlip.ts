@@ -29,12 +29,16 @@ class DealershipSlip {
 
       if (!isValid) throw new InvalidCodeError();
 
+      const nominalValue = this.getNominalValue(replacedCode);
+
       return {
         statusCode: 200,
+        amount: nominalValue,
       };
     } catch (error) {
       return {
         statusCode: 400,
+        message: error.message,
       };
     }
   }
@@ -53,6 +57,16 @@ class DealershipSlip {
     barCode += code.substring(24, 35);
     barCode += code.substring(36, 47);
     return barCode;
+  }
+
+  private getNominalValue(code: string): string {
+    const codeWithValue = `${code.substring(0, 11)}${code.substring(
+      12,
+    )}`.substring(4, 11);
+
+    const nominalValue = (parseInt(codeWithValue, 10) / 100.0).toFixed(2);
+
+    return nominalValue;
   }
 }
 
