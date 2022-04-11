@@ -47,4 +47,11 @@ describe('BankSlip UseCase ', () => {
     const isValid = codeValidator.hasCode('90324i03924i2309');
     expect(isValid).toBe(true);
   });
+
+  test('Should return true when code is equal to length', () => {
+    const { codeValidator } = makeSut();
+
+    const isValid = codeValidator.isEqualToLength('123', 3);
+    expect(isValid).toBe(true);
+  });
 });
