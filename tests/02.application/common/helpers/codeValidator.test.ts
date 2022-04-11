@@ -26,17 +26,10 @@ describe('BankSlip UseCase ', () => {
     );
   });
 
-  test('Should to throw an error when code is not a number', () => {
+  test('Should to throw an error when code have only numbers', () => {
     const { codeValidator } = makeSut();
 
-    expect(() => codeValidator.isANumber('90324i03924i2309')).toThrow(
-      new IsNotANumberError('90324i03924i2309'),
-    );
-  });
-  test('Should to throw an error when code is not a number', () => {
-    const { codeValidator } = makeSut();
-
-    expect(() => codeValidator.isANumber('90324i03924i2309')).toThrow(
+    expect(() => codeValidator.haveOnlyNumbers('90324i03924i2309')).toThrow(
       new IsNotANumberError('90324i03924i2309'),
     );
   });
@@ -52,6 +45,13 @@ describe('BankSlip UseCase ', () => {
     const { codeValidator } = makeSut();
 
     const isValid = codeValidator.isEqualToLength('123', 3);
+    expect(isValid).toBe(true);
+  });
+
+  test('Should return true when code have only numbers', () => {
+    const { codeValidator } = makeSut();
+
+    const isValid = codeValidator.haveOnlyNumbers('892347298374');
     expect(isValid).toBe(true);
   });
 });

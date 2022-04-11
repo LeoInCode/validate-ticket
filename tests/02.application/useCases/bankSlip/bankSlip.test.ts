@@ -13,7 +13,7 @@ const makeCodeValidator = () => {
       if (!this.isValid) throw new Error();
     }
 
-    public isANumber(code: string): void {
+    public haveOnlyNumbers(code: string): void {
       if (!this.isValid) throw new Error();
     }
   }

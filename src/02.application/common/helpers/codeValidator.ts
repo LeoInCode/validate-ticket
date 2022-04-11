@@ -4,6 +4,10 @@ import MissingParamError from '../exceptions/missingParamError';
 import { ICodeValidator } from './iCodeValidator';
 
 class CodeValidator implements ICodeValidator {
+  isANumber(code: string): void {
+    throw new Error('Method not implemented.');
+  }
+
   public hasCode(code: string): boolean {
     if (!code) {
       throw new MissingParamError('code');
@@ -18,7 +22,7 @@ class CodeValidator implements ICodeValidator {
     return true;
   }
 
-  public isANumber(code: string): boolean {
+  public haveOnlyNumbers(code: string): boolean {
     if (Number.isNaN(+code)) {
       throw new IsNotANumberError(code);
     }

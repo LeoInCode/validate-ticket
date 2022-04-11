@@ -70,7 +70,7 @@ class BankSlip implements IBankSplip {
     const lengthOfCode = 47;
     this.codeValidator.hasCode(originalCode);
     this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
-    this.codeValidator.isANumber(replacedCode);
+    this.codeValidator.haveOnlyNumbers(replacedCode);
   }
 
   private convertTypeableLineToBarcode(code: string): string {
