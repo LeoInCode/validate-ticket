@@ -2,7 +2,10 @@ import VerifyingDigitDealership from '../../../../../../src/02.application/useCa
 
 const makeCodeCalculator = () => {
   class CodeCalculatorSpy {
+    public remainder: number;
+
     public getRemainderOfSummation(block: string) {
+      if (this.remainder) return this.remainder;
       const code = block.split('').reverse();
       let multiplier = 2;
       const limitOfMultiplier = 9;
@@ -29,7 +32,7 @@ const makeSut = () => {
     codeCalculatorSpy,
   );
 
-  return { verifiyingDigitDealership };
+  return { verifiyingDigitDealership, codeCalculatorSpy };
 };
 
 describe('VerifyingDigitDealership Helper ', () => {
@@ -39,7 +42,7 @@ describe('VerifyingDigitDealership Helper ', () => {
     expect(isValid).toBe(false);
   });
 
-  test('Shoud return true when sum of code and verifying digit are equal in moduleTeen', async () => {
+  test('Should return true when sum of code and verifying digit are equal in moduleTeen', async () => {
     const { verifiyingDigitDealership } = makeSut();
     const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
       '836200000005667800481000180975657313001589636081',
@@ -47,10 +50,28 @@ describe('VerifyingDigitDealership Helper ', () => {
     expect(isValid).toBe(true);
   });
 
-  test('Shoud return true when sum of code and verifying digit are equal in moduleEleven', async () => {
+  test('Should return true when sum of code and verifying digit are equal in moduleEleven', async () => {
     const { verifiyingDigitDealership } = makeSut();
     const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
       '83860000000667800481001809756573100158963608',
+    );
+    expect(isValid).toBe(true);
+  });
+
+  test('Should return zero of moduleElevenCalculateVerifyingDigit when remainder is one in moduleEleven', async () => {
+    const { verifiyingDigitDealership, codeCalculatorSpy } = makeSut();
+    codeCalculatorSpy.remainder = 1;
+    const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
+      '83800000000667800481001809756573100158963608',
+    );
+    expect(isValid).toBe(true);
+  });
+
+  test('Should return one of moduleElevenCalculateVerifyingDigit when remainder is teen in moduleEleven', async () => {
+    const { verifiyingDigitDealership, codeCalculatorSpy } = makeSut();
+    codeCalculatorSpy.remainder = 10;
+    const isValid = verifiyingDigitDealership.verifyDigitInBarcode(
+      '83810000000667800481001809756573100158963608',
     );
     expect(isValid).toBe(true);
   });
