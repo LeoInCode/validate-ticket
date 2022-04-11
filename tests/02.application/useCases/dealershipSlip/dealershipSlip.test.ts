@@ -28,4 +28,10 @@ describe('BankSlip UseCase ', () => {
     const result = dealershipSlip.validate(null);
     expect(result.statusCode).toBe(400);
   });
+
+  test('Should return statusCode 400 when code does not have 48 caracteres', async () => {
+    const { dealershipSlip } = makeSut();
+    const result = dealershipSlip.validate('any_code');
+    expect(result.statusCode).toBe(400);
+  });
 });
