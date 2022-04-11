@@ -23,28 +23,31 @@ const makeCodeValidator = () => {
   return codeValidator;
 };
 
-const makeVerifyingDigit = () => {
-  class VerifyingDigitSpy {
+const makeVerifyingDigitDealership = () => {
+  class VerifyingDigitDealershipSpy {
     public isValid: boolean;
 
     public verifyDigitInBarcode(code: string) {
       return this.isValid;
     }
   }
-  const verifyingDigit = new VerifyingDigitSpy();
-  verifyingDigit.isValid = true;
-  return verifyingDigit;
+  const verifyingDigitDealership = new VerifyingDigitDealershipSpy();
+  verifyingDigitDealership.isValid = true;
+  return verifyingDigitDealership;
 };
 
 const makeSut = () => {
   const codeValidatorSpy = makeCodeValidator();
-  const verifyingDigitSpy = makeVerifyingDigit();
-  const dealershipSlip = new DealershipSlip(codeValidatorSpy);
+  const verifyingDigitDealershipSpy = makeVerifyingDigitDealership();
+  const dealershipSlip = new DealershipSlip(
+    codeValidatorSpy,
+    verifyingDigitDealershipSpy,
+  );
 
-  return { dealershipSlip, codeValidatorSpy, verifyingDigitSpy };
+  return { dealershipSlip, codeValidatorSpy, verifyingDigitDealershipSpy };
 };
 
-describe('BankSlip UseCase ', () => {
+describe('DealershipSlip UseCase ', () => {
   test('Should return statusCode 400 when code was not provided', () => {
     const { dealershipSlip } = makeSut();
     const result = dealershipSlip.validate(null);
@@ -65,13 +68,14 @@ describe('BankSlip UseCase ', () => {
     expect(result.statusCode).toBe(400);
   });
 
-  test('Should call verifyingDigit with correct code', async () => {
-    const { dealershipSlip, verifyingDigitSpy, codeValidatorSpy } = makeSut();
+  test('Should call verifyingDigitDealership with correct code', async () => {
+    const { dealershipSlip, verifyingDigitDealershipSpy, codeValidatorSpy } =
+      makeSut();
     codeValidatorSpy.isValid = true;
     const result = dealershipSlip.validate(
-      '49082.73612.345876.452039487564321094.736528756-3985',
+      '83620000000566.780048100018.0975657313001.589636081',
     );
-    expect(verifyingDigitSpy.isValid).toBe(true);
+    expect(verifyingDigitDealershipSpy.isValid).toBe(true);
     expect(result.statusCode).toBe(200);
   });
 });

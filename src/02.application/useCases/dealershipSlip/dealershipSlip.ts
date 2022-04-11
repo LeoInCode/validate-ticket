@@ -4,8 +4,11 @@ import replaceCode from '../../common/helpers/replaceCode';
 class DealershipSlip {
   private readonly codeValidator: ICodeValidator;
 
-  constructor(codeValidator: ICodeValidator) {
+  private readonly verifyingDigitDealership;
+
+  constructor(codeValidator: ICodeValidator, verifyingDigitDealership) {
     this.codeValidator = codeValidator;
+    this.verifyingDigitDealership = verifyingDigitDealership;
   }
 
   public validate(originalCode: string) {
@@ -14,7 +17,10 @@ class DealershipSlip {
 
       this.validCode(originalCode, replacedCode);
 
-      const barCode = this.convertTypeableLineToBarcode(replaceCode as any); // Needs to refactor
+      const barCode = this.convertTypeableLineToBarcode(replacedCode); // Needs to refactor
+
+      const isValid =
+        this.verifyingDigitDealership.verifyDigitInBarcode(barCode);
 
       return {
         statusCode: 200,
