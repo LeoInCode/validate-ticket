@@ -1,6 +1,6 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
 import { IBankSplip } from '../interfaces/iBankSlip';
-import { IVerifyingDigit } from './utils/iVerifyingDigit';
+import { IVerifyingDigit } from './utils/helpers/iVerifyingDigit';
 
 interface IResponse {
   barCode: string;

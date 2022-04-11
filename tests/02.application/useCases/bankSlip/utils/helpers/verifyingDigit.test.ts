@@ -1,4 +1,4 @@
-import VerifyingDigit from '../../../../../src/02.application/useCases/bankSlip/utils/verifyingDigit';
+import VerifyingDigit from '../../../../../../src/02.application/useCases/bankSlip/utils/helpers/verifyingDigit';
 
 const makeSut = () => {
   const verifiyingDigit = new VerifyingDigit();
