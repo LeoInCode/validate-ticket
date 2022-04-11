@@ -1,3 +1,5 @@
+import DealershipSlip from '../../../../src/02.application/useCases/dealershipSlip/dealershipSlip';
+
 /* eslint-disable max-classes-per-file */
 const makeCodeValidator = () => {
   class CodeValidatorSpy {
@@ -12,27 +14,6 @@ const makeCodeValidator = () => {
   codeValidator.isValid = false;
   return codeValidator;
 };
-
-class DealershipSlip {
-  private codeValidator;
-
-  constructor(codeValidator) {
-    this.codeValidator = codeValidator;
-  }
-
-  public validate(originalCode: string) {
-    try {
-      this.codeValidator.hasCode(originalCode);
-      return {
-        statusCode: 200,
-      };
-    } catch (error) {
-      return {
-        statusCode: 400,
-      };
-    }
-  }
-}
 
 const makeSut = () => {
   const codeValidatorSpy = makeCodeValidator();
