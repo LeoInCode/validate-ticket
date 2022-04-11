@@ -4,10 +4,6 @@ import MissingParamError from '../exceptions/missingParamError';
 import { ICodeValidator } from './iCodeValidator';
 
 class CodeValidator implements ICodeValidator {
-  isANumber(code: string): void {
-    throw new Error('Method not implemented.');
-  }
-
   public hasCode(code: string): boolean {
     if (!code) {
       throw new MissingParamError('code');
