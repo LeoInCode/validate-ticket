@@ -1,6 +1,13 @@
+import { ICodeCalculator } from '../../../../common/helpers/iCodeCalculator';
 import { IVerifyingDigit } from './iVerifyingDigit';
 
 class VerifyingDigit implements IVerifyingDigit {
+  private readonly codeCalculator: ICodeCalculator;
+
+  constructor(codeCalculator: ICodeCalculator) {
+    this.codeCalculator = codeCalculator;
+  }
+
   public verifyDigitInBarcode(code: string): boolean {
     const positionOfVerifyingDigit = 4;
     const verifyingDigit = code[positionOfVerifyingDigit];
@@ -12,11 +19,8 @@ class VerifyingDigit implements IVerifyingDigit {
   }
 
   private moduleElevenCalculateVerifyingDigit(block: string): number {
-    const code = block.split('').reverse();
-    const summation = this.getSummationOfCode(code);
-
+    const remainder = this.codeCalculator.getRemainderOfSummation(block);
     const numberOfPositions = 11;
-    const remainder = summation % numberOfPositions;
 
     const veyfyingDigit = numberOfPositions - remainder;
     if (veyfyingDigit === 0 || veyfyingDigit === 10 || veyfyingDigit === 11)

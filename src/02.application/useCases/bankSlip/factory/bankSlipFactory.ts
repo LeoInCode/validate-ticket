@@ -3,11 +3,13 @@ import { IBankSplip } from '../../interfaces/iBankSlip';
 import BankSlip from '../bankSplit';
 import CodeValidator from '../../../common/helpers/codeValidator';
 import VerifyingDigit from '../utils/helpers/verifyingDigit';
+import CodeCalculator from '../../../common/helpers/codeCalculator';
 
 abstract class BankSlipFactory {
   public static build(): IBankSplip {
     const codeValidator = new CodeValidator();
-    const verifyingDigit = new VerifyingDigit();
+    const codeCalculator = new CodeCalculator();
+    const verifyingDigit = new VerifyingDigit(codeCalculator);
     const dateTransform = new DateTransform();
     return new BankSlip(codeValidator, verifyingDigit, dateTransform);
   }

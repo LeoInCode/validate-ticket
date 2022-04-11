@@ -1,9 +1,33 @@
 import VerifyingDigit from '../../../../../../src/02.application/useCases/bankSlip/utils/helpers/verifyingDigit';
 
-const makeSut = () => {
-  const verifiyingDigit = new VerifyingDigit();
+const makeCodeCalculator = () => {
+  class CodeCalculatorSpy {
+    public getRemainderOfSummation(block: string) {
+      const code = block.split('').reverse();
+      let multiplier = 2;
+      const limitOfMultiplier = 9;
+      const summation = code.reduce((acc, cur) => {
+        const sum = +cur * multiplier;
+        multiplier = multiplier === limitOfMultiplier ? 2 : multiplier + 1;
+        return acc + sum;
+      }, 0);
 
-  return { verifiyingDigit };
+      const numberOfPositions = 11;
+      const remainder = summation % numberOfPositions;
+
+      return remainder;
+    }
+  }
+
+  const codeCalculator = new CodeCalculatorSpy();
+  return codeCalculator;
+};
+
+const makeSut = () => {
+  const codeCalculatorSpy = makeCodeCalculator();
+  const verifiyingDigit = new VerifyingDigit(codeCalculatorSpy);
+
+  return { verifiyingDigit, codeCalculatorSpy };
 };
 
 describe('VerifyingDigit UseCase ', () => {
