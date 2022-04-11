@@ -33,4 +33,18 @@ describe('BankSlip UseCase ', () => {
       new IsNotANumberError('90324i03924i2309'),
     );
   });
+  test('Should to throw an error when code is not a number', () => {
+    const { codeValidator } = makeSut();
+
+    expect(() => codeValidator.isANumber('90324i03924i2309')).toThrow(
+      new IsNotANumberError('90324i03924i2309'),
+    );
+  });
+
+  test('Should return true when code was provided', () => {
+    const { codeValidator } = makeSut();
+
+    const isValid = codeValidator.hasCode('90324i03924i2309');
+    expect(isValid).toBe(true);
+  });
 });
