@@ -14,7 +14,9 @@ class FetlockController {
     const bankSlip = BankSlipFactory.build();
     const informationsOfFetlock = bankSlip.validate(req.params.id);
 
-    return res.status(200).send(informationsOfFetlock);
+    return res
+      .status(informationsOfFetlock.statusCode)
+      .send(informationsOfFetlock.data);
   }
 }
 
