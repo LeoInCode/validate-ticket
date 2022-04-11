@@ -1,13 +1,17 @@
 import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
 import replaceCode from '../../common/helpers/replaceCode';
+import { IVerifyingDigitDealership } from './utils/helpers/iVerifyingDigitDealership';
 
 class DealershipSlip {
   private readonly codeValidator: ICodeValidator;
 
-  private readonly verifyingDigitDealership;
+  private readonly verifyingDigitDealership: IVerifyingDigitDealership;
 
-  constructor(codeValidator: ICodeValidator, verifyingDigitDealership) {
+  constructor(
+    codeValidator: ICodeValidator,
+    verifyingDigitDealership: IVerifyingDigitDealership,
+  ) {
     this.codeValidator = codeValidator;
     this.verifyingDigitDealership = verifyingDigitDealership;
   }

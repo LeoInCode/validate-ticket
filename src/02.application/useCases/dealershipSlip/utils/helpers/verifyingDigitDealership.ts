@@ -1,7 +1,8 @@
 import { ICodeCalculator } from '../../../../common/helpers/iCodeCalculator';
+import { IVerifyingDigitDealership } from './iVerifyingDigitDealership';
 
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-class VerifyingDigitDealership {
+class VerifyingDigitDealership implements IVerifyingDigitDealership {
   private readonly codeCalculator: ICodeCalculator;
 
   constructor(codeCalculator: ICodeCalculator) {
