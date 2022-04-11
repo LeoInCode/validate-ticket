@@ -1,4 +1,5 @@
 import DifferentLengthError from '../../../../src/02.application/common/exceptions/differentLengthError';
+import IsNotANumberError from '../../../../src/02.application/common/exceptions/isNotANumberError';
 import MissingParamError from '../../../../src/02.application/common/exceptions/missingParamError';
 import CodeValidator from '../../../../src/02.application/common/helpers/codeValidator';
 
@@ -22,6 +23,14 @@ describe('BankSlip UseCase ', () => {
 
     expect(() => codeValidator.isEqualToLength('90324i03924i2309', 47)).toThrow(
       new DifferentLengthError(47),
+    );
+  });
+
+  test('Should to throw an error when code is not a number', () => {
+    const { codeValidator } = makeSut();
+
+    expect(() => codeValidator.isANumber('90324i03924i2309')).toThrow(
+      new IsNotANumberError('90324i03924i2309'),
     );
   });
 });
