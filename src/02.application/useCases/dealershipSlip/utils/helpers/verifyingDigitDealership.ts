@@ -24,8 +24,7 @@ class VerifyingDigitDealership {
   }
 
   private moduleElevenCalculateVerifyingDigit(block: string): number {
-    const code = block.split('').reverse();
-    const remainder = this.codeCalculator.getRemainderOfSummation(code);
+    const remainder = this.codeCalculator.getRemainderOfSummation(block);
     const numberOfPositions = 11;
 
     if (remainder === 0 || remainder === 1) return 0;

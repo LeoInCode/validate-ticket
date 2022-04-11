@@ -1,5 +1,6 @@
 class CodeCalculator {
-  public getRemainderOfSummation(code: string[]): number {
+  public getRemainderOfSummation(block: string): number {
+    const code = block.split('').reverse();
     let multiplier = 2;
     const limitOfMultiplier = 9;
     const summation = code.reduce((acc, cur) => {
