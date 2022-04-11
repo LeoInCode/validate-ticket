@@ -1,12 +1,18 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
-import replaceCode from '../../common/replaceCode';
+import InvalidCodeError from '../../common/exceptions/invalidCodeError';
+import { ICodeValidator } from '../../common/helpers/iCodeValidator';
+import replaceCode from '../../common/helpers/replaceCode';
 import { IBankSplip } from '../interfaces/iBankSlip';
 import { IVerifyingDigit } from './utils/helpers/iVerifyingDigit';
 
 interface IResponse {
-  barCode: string;
-  amount: string;
-  expirationDate: string;
+  statusCode: number;
+  data: {
+    barCode?: string;
+    amount?: string;
+    expirationDate?: string;
+    message?: string;
+  };
 }
 
 class BankSlip implements IBankSplip {
@@ -14,35 +20,57 @@ class BankSlip implements IBankSplip {
 
   private readonly dateTransform: IDateTransform;
 
-  constructor(verifyingDigit: IVerifyingDigit, dateTrasnform: IDateTransform) {
+  private readonly codeValidator: ICodeValidator;
+
+  constructor(
+    codeValidator: ICodeValidator,
+    verifyingDigit: IVerifyingDigit,
+    dateTrasnform: IDateTransform,
+  ) {
+    this.codeValidator = codeValidator;
     this.verifyingDigit = verifyingDigit;
     this.dateTransform = dateTrasnform;
   }
 
-  public validate(originalCode: string): IResponse | boolean {
-    if (!originalCode) return false;
+  public validate(originalCode: string): IResponse {
+    try {
+      const replacedCode = replaceCode(originalCode);
 
-    const replacedCode = replaceCode(originalCode);
+      this.validCode(originalCode, replacedCode);
 
-    if (replacedCode.length !== 47) return false;
+      const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
-    if (Number.isNaN(+replacedCode)) return false;
+      const isValid = this.verifyingDigit.verifyDigitInBarcode(barCode);
 
-    const barCode = this.convertTypeableLineToBarcode(replacedCode);
+      if (!isValid) throw new InvalidCodeError();
 
-    const isValid = this.verifyingDigit.verifyDigitInBarcode(barCode);
+      const expirationDate = this.getExpirationDate(replacedCode);
 
-    if (!isValid) return false;
+      const valueNominal = this.getValueNominal(replacedCode);
 
-    const expirationDate = this.getExpirationDate(replacedCode);
+      return {
+        statusCode: 200,
+        data: {
+          barCode: replacedCode,
+          amount: valueNominal,
+          expirationDate,
+        },
+      };
+    } catch (error) {
+      return {
+        statusCode: 400,
+        data: {
+          message: error.message,
+        },
+      };
+    }
+  }
 
-    const valueNominal = this.getValueNominal(replacedCode);
-
-    return {
-      barCode: replacedCode,
-      amount: valueNominal,
-      expirationDate,
-    };
+  private validCode(originalCode: string, replacedCode: string): void {
+    const lengthOfCode = 47;
+    this.codeValidator.hasCode(originalCode);
+    this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
+    this.codeValidator.isANumber(replacedCode);
   }
 
   private convertTypeableLineToBarcode(code: string): string {

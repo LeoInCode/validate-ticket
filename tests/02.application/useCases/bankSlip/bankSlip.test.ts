@@ -1,6 +1,24 @@
 /* eslint-disable max-classes-per-file */
-
 import BankSlip from '../../../../src/02.application/useCases/bankSlip/bankSplit';
+
+const makeCodeValidator = () => {
+  class CodeValidatorSpy {
+    public hasCode(code: string): void {
+      throw new Error();
+    }
+
+    public isEqualToLength(code: string, length: number): void {
+      throw new Error();
+    }
+
+    public isANumber(code: string): void {
+      throw new Error();
+    }
+  }
+
+  const codeValidator = new CodeValidatorSpy();
+  return codeValidator;
+};
 
 const makeVerifyingDigit = () => {
   class VerifyingDigitSpy {
@@ -31,31 +49,36 @@ const makeDateTransform = () => {
 
 const makeSut = () => {
   const verifyDigitSpy = makeVerifyingDigit();
-  const dateTrasnform = makeDateTransform();
-  const bankSlip = new BankSlip(verifyDigitSpy, dateTrasnform);
+  const dateTrasnformSpy = makeDateTransform();
+  const codeValidatorSpy = makeCodeValidator();
+  const bankSlip = new BankSlip(
+    codeValidatorSpy,
+    verifyDigitSpy,
+    dateTrasnformSpy,
+  );
 
-  return { bankSlip, verifyDigitSpy };
+  return { bankSlip, verifyDigitSpy, codeValidatorSpy, dateTrasnformSpy };
 };
 
 describe('BankSlip UseCase ', () => {
-  test('Shoud return false when code was not provided', async () => {
+  test('Should return statusCode 400 when code was not provided', () => {
     const { bankSlip } = makeSut();
-    const isValid = bankSlip.validate(null);
-    expect(isValid).toBe(false);
+    const result = bankSlip.validate(null);
+    expect(result.statusCode).toBe(400);
   });
 
-  test('Shoud return false when code does not have 47 caracteres', async () => {
+  test('Should return statusCode 400 when code does not have 47 caracteres', async () => {
     const { bankSlip } = makeSut();
-    const isValid = bankSlip.validate('any_code');
-    expect(isValid).toBe(false);
+    const result = bankSlip.validate('any_code');
+    expect(result.statusCode).toBe(400);
   });
 
-  test('Shoud return false when code does not contain only numbers', async () => {
+  test('Shoud return statusCode 400 when code does not contain only numbers', async () => {
     const { bankSlip } = makeSut();
-    const isValid = bankSlip.validate(
+    const result = bankSlip.validate(
       'any_code123458764520394875643210947365287563985',
     );
-    expect(isValid).toBe(false);
+    expect(result.statusCode).toBe(400);
   });
 
   test('Shoud call verifyingDigit with correct code', async () => {
@@ -67,10 +90,10 @@ describe('BankSlip UseCase ', () => {
   test('Shoud call verifyingDigit with incorrect code', async () => {
     const { bankSlip, verifyDigitSpy } = makeSut();
     verifyDigitSpy.isValid = false;
-    const isValid = bankSlip.validate(
+    const result = bankSlip.validate(
       '49082.73612.345876.452039487564321094.736528756-3985',
     );
-    expect(isValid).toBe(false);
+    expect(result.statusCode).toBe(400);
     expect(verifyDigitSpy.isValid).toBe(false);
   });
 });
