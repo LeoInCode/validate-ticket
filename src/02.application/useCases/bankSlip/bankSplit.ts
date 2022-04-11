@@ -102,14 +102,19 @@ class BankSlip implements IBankSplip {
 
   private getNominalValue(code: string): string {
     const codeWithValue = code.substring(37, 47).split('');
-    this.deleteLastTwoPositions(codeWithValue);
-    const valueNominal = +codeWithValue.join('');
+    const deletedPositions = this.deleteLastTwoPositions(codeWithValue);
+    const valueNominal = `${+codeWithValue.join('')}.${deletedPositions.join(
+      '',
+    )}`;
 
-    return valueNominal.toFixed(2);
+    return valueNominal;
   }
 
-  private deleteLastTwoPositions(codeWithValue: string[]) {
-    codeWithValue.splice(codeWithValue.length - 2, codeWithValue.length - 1);
+  private deleteLastTwoPositions(codeWithValue: string[]): string[] {
+    return codeWithValue.splice(
+      codeWithValue.length - 2,
+      codeWithValue.length - 1,
+    );
   }
 }
 
