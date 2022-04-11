@@ -1,8 +1,10 @@
+import { ICodeCalculator } from '../../../../common/helpers/iCodeCalculator';
+
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 class VerifyingDigitDealership {
-  private readonly codeCalculator;
+  private readonly codeCalculator: ICodeCalculator;
 
-  constructor(codeCalculator) {
+  constructor(codeCalculator: ICodeCalculator) {
     this.codeCalculator = codeCalculator;
   }
 
