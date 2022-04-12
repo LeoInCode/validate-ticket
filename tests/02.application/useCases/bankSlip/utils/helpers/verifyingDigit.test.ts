@@ -30,7 +30,7 @@ const makeSut = () => {
   return { verifiyingDigit, codeCalculatorSpy };
 };
 
-describe('VerifyingDigit UseCase ', () => {
+describe('VerifyingDigit Helper ', () => {
   test('Shoud return false when sum of code and verifying digit is not equal', async () => {
     const { verifiyingDigit } = makeSut();
     const isValid = verifiyingDigit.verifyDigitInBarcode('9832098');
