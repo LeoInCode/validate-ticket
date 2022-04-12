@@ -1,15 +1,20 @@
-import { format } from 'date-fns';
+import { addHours, format } from 'date-fns';
 import { IDateTransform } from './iDateTransform';
 
 class DateTransform implements IDateTransform {
   public addDays(startDate: Date, days: number): Date {
-    startDate.setDate(startDate.getDate() + days);
+    let newStartDate = startDate;
+    if (startDate.getHours() !== new Date().getHours()) {
+      newStartDate = addHours(startDate, 2);
+    }
+
+    startDate.setDate(newStartDate.getDate() + days);
+
     return startDate;
   }
 
   public getOnlyDate(date: Date): string {
-    const dateIncremented = this.addDays(date, 1);
-    const dateTransformed = format(dateIncremented, 'yyyy-MM-dd');
+    const dateTransformed = format(date, 'yyyy-MM-dd');
 
     return dateTransformed;
   }
