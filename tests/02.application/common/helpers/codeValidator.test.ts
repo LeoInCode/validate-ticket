@@ -9,7 +9,7 @@ const makeSut = () => {
   return { codeValidator };
 };
 
-describe('BankSlip UseCase ', () => {
+describe('CodeValidator Helper ', () => {
   test('Should to throw an error when code was not provided', () => {
     const { codeValidator } = makeSut();
 
