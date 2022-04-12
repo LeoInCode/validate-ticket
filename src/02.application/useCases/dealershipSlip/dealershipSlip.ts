@@ -1,6 +1,6 @@
 import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
-import replaceCode from '../../common/helpers/replaceCode';
+import ReplaceCode from '../../common/helpers/replaceCode';
 import { IVerifyingDigitDealership } from './utils/helpers/iVerifyingDigitDealership';
 
 class DealershipSlip {
@@ -20,7 +20,7 @@ class DealershipSlip {
     try {
       this.validCode(originalCode);
 
-      const replacedCode = replaceCode(originalCode);
+      const replacedCode = ReplaceCode.replace(originalCode);
 
       const barCode = this.convertTypeableLineToBarcode(replacedCode); // Needs to refactor
 
@@ -46,7 +46,7 @@ class DealershipSlip {
   private validCode(originalCode: string): void {
     const lengthOfCode = 48;
     this.codeValidator.hasCode(originalCode);
-    const replacedCode = replaceCode(originalCode);
+    const replacedCode = ReplaceCode.replace(originalCode);
     this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
     this.codeValidator.haveOnlyNumbers(replacedCode);
   }

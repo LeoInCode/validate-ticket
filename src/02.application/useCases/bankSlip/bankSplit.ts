@@ -1,7 +1,7 @@
 import { IDateTransform } from '../../../03.infra/adapters/dateTransform/iDateTransform';
 import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
-import replaceCode from '../../common/helpers/replaceCode';
+import ReplaceCode from '../../common/helpers/replaceCode';
 import { IBankSplip } from '../interfaces/iBankSlip';
 import { IVerifyingDigit } from './utils/helpers/iVerifyingDigit';
 
@@ -36,7 +36,7 @@ class BankSlip implements IBankSplip {
     try {
       this.validCode(originalCode);
 
-      const replacedCode = replaceCode(originalCode);
+      const replacedCode = ReplaceCode.replace(originalCode);
 
       const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
@@ -69,7 +69,7 @@ class BankSlip implements IBankSplip {
   private validCode(originalCode: string): void {
     const lengthOfCode = 47;
     this.codeValidator.hasCode(originalCode);
-    const replacedCode = replaceCode(originalCode);
+    const replacedCode = ReplaceCode.replace(originalCode);
     this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
     this.codeValidator.haveOnlyNumbers(replacedCode);
   }
