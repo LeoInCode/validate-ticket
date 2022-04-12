@@ -23,7 +23,7 @@ class DealershipSlip {
 
       const replacedCode = ReplaceCode.replace(originalCode);
 
-      const barCode = this.convertTypeableLineToBarcode(replacedCode); // Needs to refactor
+      const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
       const isValid =
         this.verifyingDigitDealership.verifyDigitInBarcode(barCode);
@@ -35,6 +35,7 @@ class DealershipSlip {
       return {
         statusCode: 200,
         data: {
+          barCode,
           amount: nominalValue,
         },
       };
@@ -68,7 +69,7 @@ class DealershipSlip {
   private getNominalValue(code: string): string {
     const codeWithValue = `${code.substring(0, 11)}${code.substring(
       12,
-    )}`.substring(4, 11);
+    )}`.substring(4, 15);
 
     const nominalValue = (parseInt(codeWithValue, 10) / 100.0).toFixed(2);
 
