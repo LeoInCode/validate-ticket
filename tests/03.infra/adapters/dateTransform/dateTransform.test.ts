@@ -15,4 +15,13 @@ describe('DateTransform Adaoter', () => {
 
     expect(daysAfter).toEqual(new Date('11-06-2022'));
   });
+
+  test('Should format date and return only date', () => {
+    const { dateTransform } = makeSut();
+
+    const date = new Date('11-04-2022');
+    const onlyDate = dateTransform.getOnlyDate(date);
+
+    expect(onlyDate).toEqual('2022-11-04');
+  });
 });
