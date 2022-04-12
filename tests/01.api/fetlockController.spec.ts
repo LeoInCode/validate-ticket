@@ -50,4 +50,12 @@ describe('Get informations about /boleto/', () => {
     );
     expect(result.body.amount).toBe('231.83');
   });
+
+  test('should return 400 because length of code by DealershipSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/836400000029318300863194034652180018100135235826345',
+    );
+    expect(result.status).toBe(400);
+    expect(result.body.message).toBe('Different length: 48');
+  });
 });

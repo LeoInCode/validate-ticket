@@ -13,7 +13,7 @@ class CodeValidator implements ICodeValidator {
 
   public isEqualToLength(code: string, length: number): boolean {
     if (code.length !== length) {
-      throw new DifferentLengthError(47);
+      throw new DifferentLengthError(length);
     }
     return true;
   }
