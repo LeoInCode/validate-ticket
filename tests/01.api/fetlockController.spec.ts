@@ -58,4 +58,14 @@ describe('Get informations about /boleto/', () => {
     expect(result.status).toBe(400);
     expect(result.body.message).toBe('Different length: 48');
   });
+
+  test('should return 400 because code does not have only numbers by DealershipSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/836400000029a3183s00631f403652180018100135235826',
+    );
+    expect(result.status).toBe(400);
+    expect(result.body.message).toBe(
+      'Is not a number: 836400000029a3183s00631f403652180018100135235826',
+    );
+  });
 });
