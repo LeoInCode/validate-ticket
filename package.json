@@ -45,6 +45,7 @@
     "express": "^4.17.3",
     "g": "^2.0.1",
     "supertest": "^6.2.2",
+    "swagger-ui-express": "^4.3.0",
     "ts-node": "^10.4.0",
     "tsconfig-paths": "^3.14.1"
   }
