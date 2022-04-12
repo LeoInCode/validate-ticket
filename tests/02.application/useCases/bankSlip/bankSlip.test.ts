@@ -1,5 +1,5 @@
 /* eslint-disable max-classes-per-file */
-import BankSlip from '../../../../src/02.application/useCases/bankSlip/bankSplit';
+import BankSlip from '../../../../src/02.application/useCases/bankSlip/bankSplip';
 
 const makeCodeValidator = () => {
   class CodeValidatorSpy {

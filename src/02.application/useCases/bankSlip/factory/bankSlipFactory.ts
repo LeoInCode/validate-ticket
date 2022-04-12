@@ -1,6 +1,6 @@
 import DateTransform from '../../../../03.infra/adapters/dateTransform/dateTransform';
 import { IBankSplip } from '../../interfaces/iBankSlip';
-import BankSlip from '../bankSplit';
+import BankSlip from '../bankSplip';
 import CodeValidator from '../../../common/helpers/codeValidator';
 import VerifyingDigit from '../utils/helpers/verifyingDigit';
 import CodeCalculator from '../../../common/helpers/codeCalculator';
