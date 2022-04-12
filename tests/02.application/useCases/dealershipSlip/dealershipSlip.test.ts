@@ -48,7 +48,7 @@ const makeSut = () => {
 };
 
 describe('DealershipSlip UseCase ', () => {
-  test.only('Should return statusCode 400 when code was not provided', () => {
+  test('Should return statusCode 400 when code was not provided', () => {
     const { dealershipSlip } = makeSut();
     const result = dealershipSlip.validate(null);
     expect(result.statusCode).toBe(400);
