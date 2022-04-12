@@ -16,6 +16,15 @@ describe('DateTransform Adaoter', () => {
     expect(daysAfter).toEqual(new Date('11-06-2022'));
   });
 
+  test('Should return two days after startDate with other timezone', () => {
+    const { dateTransform } = makeSut();
+
+    const startDate = new Date('2018-07-16');
+    const daysAfter = dateTransform.addDays(startDate, 2);
+
+    expect(daysAfter).toEqual(new Date('2018-07-18'));
+  });
+
   test('Should format date and return only date', () => {
     const { dateTransform } = makeSut();
 
