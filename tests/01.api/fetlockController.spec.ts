@@ -30,4 +30,12 @@ describe('Get informations about /boleto/', () => {
       'Is not a number: 21290001192110001kit904475617405975870000002000',
     );
   });
+
+  test('should return 400 because code have a invalid DV by BankSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/21290001192110001210904475817405975870000002000',
+    );
+    expect(result.status).toBe(400);
+    expect(result.body.message).toBe('Invalid Code Error: DV');
+  });
 });
