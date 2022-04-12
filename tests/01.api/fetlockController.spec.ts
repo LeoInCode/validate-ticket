@@ -12,11 +12,22 @@ describe('Get informations about /boleto/', () => {
     );
     expect(result.body.expirationDate).toBe('2018-07-16');
   });
+
   test('should return 400 because length of code by BankSlip', async () => {
     const result = await supertest(app).get(
       '/boleto/21290001192110001210904475617405975809870000002000',
     );
     expect(result.status).toBe(400);
     expect(result.body.message).toBe('Different length: 47');
+  });
+
+  test('should return 400 because does not have only numbers by BankSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/21290001192110001kit904475617405975870000002000',
+    );
+    expect(result.status).toBe(400);
+    expect(result.body.message).toBe(
+      'Is not a number: 21290001192110001kit904475617405975870000002000',
+    );
   });
 });
