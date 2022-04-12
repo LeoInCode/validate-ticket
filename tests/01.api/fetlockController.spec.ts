@@ -68,4 +68,12 @@ describe('Get informations about /boleto/', () => {
       'Is not a number: 836400000029a3183s00631f403652180018100135235826',
     );
   });
+
+  test('should return 400 because code have a invalid DV by DealershipSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/836400000029328300863194034652180018100135235826',
+    );
+    expect(result.status).toBe(400);
+    expect(result.body.message).toBe('Invalid Code Error: DV');
+  });
 });
