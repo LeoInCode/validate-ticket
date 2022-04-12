@@ -6,7 +6,9 @@
   "scripts": {
     "build": "tsc",
     "start": "ts-node-dev ./server.ts",
-    "test": "jest --watchAll --noStackTrace"
+    "test": "jest --watch --noStackTrace",
+    "test:unit": "npm test -- --watch -c jest-unit-config.js",
+    "test:integration": "npm test -- --watch -c jest-integration-config.js"
   },
   "repository": {
     "type": "git",
