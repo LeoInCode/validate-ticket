@@ -34,9 +34,9 @@ class BankSlip implements IBankSplip {
 
   public validate(originalCode: string): IResponse {
     try {
-      const replacedCode = replaceCode(originalCode);
+      this.validCode(originalCode);
 
-      this.validCode(originalCode, replacedCode);
+      const replacedCode = replaceCode(originalCode);
 
       const barCode = this.convertTypeableLineToBarcode(replacedCode);
 
@@ -66,9 +66,10 @@ class BankSlip implements IBankSplip {
     }
   }
 
-  private validCode(originalCode: string, replacedCode: string): void {
+  private validCode(originalCode: string): void {
     const lengthOfCode = 47;
     this.codeValidator.hasCode(originalCode);
+    const replacedCode = replaceCode(originalCode);
     this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
     this.codeValidator.haveOnlyNumbers(replacedCode);
   }
