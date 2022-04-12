@@ -38,4 +38,15 @@ describe('Get informations about /boleto/', () => {
     expect(result.status).toBe(400);
     expect(result.body.message).toBe('Invalid Code Error: DV');
   });
+
+  test('should return 200 with informations by DealershipSlip', async () => {
+    const result = await supertest(app).get(
+      '/boleto/836400000029318300863194034652180018100135235826',
+    );
+    expect(result.status).toBe(200);
+    expect(result.body.barCode).toBe(
+      '83640000002318300863190346521800110013523582',
+    );
+    expect(result.body.amount).toBe('231.83');
+  });
 });
