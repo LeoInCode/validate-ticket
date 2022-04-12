@@ -8,7 +8,8 @@
     "start": "ts-node-dev ./server.ts",
     "test": "jest --watch --noStackTrace",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
-    "test:integration": "npm test -- --watch -c jest-integration-config.js"
+    "test:integration": "npm test -- --watch -c jest-integration-config.js",
+    "test:all": "jest --watchAll --noStackTrace"
   },
   "repository": {
     "type": "git",

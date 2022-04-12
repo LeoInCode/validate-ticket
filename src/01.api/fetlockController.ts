@@ -13,15 +13,14 @@ interface IResponse {
 class FetlockController {
   public static getInformations(req: IRequest, res: IResponse): IResponse {
     const code = req.params.id;
-    if (!code) return res.status(400).send({ message: 'Missing param: code' });
-
     let informationsOfFetlock;
+
     if (+code[0] === 8) {
       const dealershipSlip = DealershipSlipFactory.build();
-      informationsOfFetlock = dealershipSlip.validate(req.params.id);
+      informationsOfFetlock = dealershipSlip.validate(code);
     } else {
       const bankSlip = BankSlipFactory.build();
-      informationsOfFetlock = bankSlip.validate(req.params.id);
+      informationsOfFetlock = bankSlip.validate(code);
     }
 
     return res
