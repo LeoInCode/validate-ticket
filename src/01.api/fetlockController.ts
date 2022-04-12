@@ -2,7 +2,7 @@ import BankSlipFactory from '../02.application/useCases/bankSlip/factory/bankSli
 import DealershipSlipFactory from '../02.application/useCases/dealershipSlip/factory/dealershipSlipFactory';
 
 interface IRequest {
-  params: { id: string };
+  params: { code: string };
 }
 
 interface IResponse {
@@ -12,7 +12,7 @@ interface IResponse {
 
 class FetlockController {
   public static getInformations(req: IRequest, res: IResponse): IResponse {
-    const code = req.params.id;
+    const { code } = req.params;
     let informationsOfFetlock;
 
     if (+code[0] === 8) {
