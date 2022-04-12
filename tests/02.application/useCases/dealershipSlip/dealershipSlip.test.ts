@@ -88,7 +88,7 @@ describe('DealershipSlip UseCase ', () => {
       '83620000000566.780048100018.0975657313001.589636081',
     );
     expect(result.statusCode).toBe(400);
-    expect(result.message).toBe('Invalid Code Error: DV');
+    expect(result.data.message).toBe('Invalid Code Error: DV');
     expect(verifyingDigitDealershipSpy.isValid).toBe(false);
   });
 });

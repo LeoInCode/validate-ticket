@@ -1,6 +1,7 @@
 import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
 import ReplaceCode from '../../common/helpers/replaceCode';
+import { IResponse } from '../interfaces/iResponse';
 import { IVerifyingDigitDealership } from './utils/helpers/iVerifyingDigitDealership';
 
 class DealershipSlip {
@@ -16,7 +17,7 @@ class DealershipSlip {
     this.verifyingDigitDealership = verifyingDigitDealership;
   }
 
-  public validate(originalCode: string) {
+  public validate(originalCode: string): IResponse {
     try {
       this.validCode(originalCode);
 
@@ -33,12 +34,16 @@ class DealershipSlip {
 
       return {
         statusCode: 200,
-        amount: nominalValue,
+        data: {
+          amount: nominalValue,
+        },
       };
     } catch (error) {
       return {
         statusCode: 400,
-        message: error.message,
+        data: {
+          message: error.message,
+        },
       };
     }
   }

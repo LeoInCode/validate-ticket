@@ -3,17 +3,8 @@ import InvalidCodeError from '../../common/exceptions/invalidCodeError';
 import { ICodeValidator } from '../../common/helpers/iCodeValidator';
 import ReplaceCode from '../../common/helpers/replaceCode';
 import { IBankSplip } from '../interfaces/iBankSlip';
+import { IResponse } from '../interfaces/iResponse';
 import { IVerifyingDigit } from './utils/helpers/iVerifyingDigit';
-
-interface IResponse {
-  statusCode: number;
-  data: {
-    barCode?: string;
-    amount?: string;
-    expirationDate?: string;
-    message?: string;
-  };
-}
 
 class BankSlip implements IBankSplip {
   private readonly verifyingDigit: IVerifyingDigit;
