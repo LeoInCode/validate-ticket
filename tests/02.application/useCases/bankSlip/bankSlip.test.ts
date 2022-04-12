@@ -104,14 +104,4 @@ describe('BankSlip UseCase ', () => {
     expect(result.statusCode).toBe(400);
     expect(verifyDigitSpy.isValid).toBe(false);
   });
-
-  test('Should call verifyingDigit with incorrect code', async () => {
-    const { bankSlip, verifyDigitSpy } = makeSut();
-    verifyDigitSpy.isValid = false;
-    const result = bankSlip.validate(
-      '49082.73612.345876.452039487564321094.736528756-3985',
-    );
-    expect(result.statusCode).toBe(400);
-    expect(verifyDigitSpy.isValid).toBe(false);
-  });
 });

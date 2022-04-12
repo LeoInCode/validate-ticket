@@ -18,9 +18,9 @@ class DealershipSlip {
 
   public validate(originalCode: string) {
     try {
-      const replacedCode = replaceCode(originalCode);
+      this.validCode(originalCode);
 
-      this.validCode(originalCode, replacedCode);
+      const replacedCode = replaceCode(originalCode);
 
       const barCode = this.convertTypeableLineToBarcode(replacedCode); // Needs to refactor
 
@@ -43,9 +43,10 @@ class DealershipSlip {
     }
   }
 
-  private validCode(originalCode: string, replacedCode: string): void {
+  private validCode(originalCode: string): void {
     const lengthOfCode = 48;
     this.codeValidator.hasCode(originalCode);
+    const replacedCode = replaceCode(originalCode);
     this.codeValidator.isEqualToLength(replacedCode, lengthOfCode);
     this.codeValidator.haveOnlyNumbers(replacedCode);
   }
