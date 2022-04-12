@@ -11,6 +11,7 @@ describe('Get informations about /boleto/', () => {
       '21290001192110001210904475617405975870000002000',
     );
     expect(result.body.expirationDate).toBe('2018-07-16');
+    expect(result.body.amount).toBe('20.00');
   });
 
   test('should return 400 because length of code by BankSlip', async () => {
