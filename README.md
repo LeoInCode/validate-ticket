@@ -18,6 +18,13 @@ This is an implementation about bank slip and dealership slip. This application 
 - Jest 27.5.1
 
 ---
+#### Results of tests using TDD
+In this project, I'm using TDD to implement this solution.
+<p align="center">
+  <img alt="Results of Tests" src="sources/TDD.jpeg" width="700px">
+</p>
+
+---
 #### Methods to Run
 	npm install
 	npm start (To run application)
